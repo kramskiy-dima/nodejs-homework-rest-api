@@ -1,21 +1,10 @@
 [
   {
     "id": 1,
-    "name": "Allen Raymond",
+    "name": "ssssssaasa",
     "email": "nulla.ante@vestibul.co.uk",
-    "phone": "(992) 914-3792"
-  },
-  {
-    "id": 2,
-    "name": "Chaim Lewis",
-    "email": "dui.in@egetlacus.ca",
-    "phone": "(294) 840-6685"
-  },
-  {
-    "id": 3,
-    "name": "Kennedy Lane",
-    "email": "mattis.Cras@nonenimMauris.net",
-    "phone": "(542) 451-7038"
+    "phone": "+380935097582",
+    "isVaccinated": true
   },
   {
     "id": 4,
@@ -27,7 +16,7 @@
     "id": 5,
     "name": "Cyrus Jackson",
     "email": "nibh@semsempererat.com",
-    "phone": "(501) 472-5218"
+    "phone": "+380935097582"
   },
   {
     "id": 6,
@@ -58,5 +47,33 @@
     "name": "Alec Howard",
     "email": "Donec.elementum@scelerisquescelerisquedui.net",
     "phone": "(748) 206-2688"
+  },
+  {
+    "id": "GdyToN8r0",
+    "name": "Dima",
+    "email": "kramskid@gmail.com",
+    "phone": "+380935097582",
+    "isVaccinated": false
+  },
+  {
+    "id": "yASMm2alZ",
+    "name": "test",
+    "email": "test@gmail.com",
+    "phone": "+00000000000",
+    "isVaccinated": false
+  },
+  {
+    "id": "ijnFa0cte",
+    "name": "Chaim Lewis",
+    "email": "dui.in@egetlacus.ca",
+    "phone": "(294) 840-6685",
+    "isVaccinated": false
+  },
+  {
+    "id": "w6t2ha06k",
+    "name": "Chaim",
+    "email": "sdasdsad@mail.com",
+    "phone": "1111111111",
+    "isVaccinated": false
   }
 ]
