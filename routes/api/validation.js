@@ -8,10 +8,7 @@ const schemaCreateContact = Joi.object({
       tlds: { allow: ["com", "net"] },
     })
     .required(),
-  phone: Joi.string()
-    .length(10)
-    .pattern(/^[0-9]+$/)
-    .required(),
+  phone: Joi.string().required(),
   isVaccinated: Joi.boolean().optional(),
 });
 
@@ -23,12 +20,11 @@ const schemaUpdateContact = Joi.object({
       tlds: { allow: ["com", "net"] },
     })
     .optional(),
-  phone: Joi.string()
-    .length(10)
-    .pattern(/^[0-9]+$/)
-    .optional(),
+  phone: Joi.string().optional(),
   isVaccinated: Joi.boolean().optional(),
-}).or("name", "email", "phone", "isVaccinated");
+})
+  .or("name", "email", "phone", "isVaccinated")
+  .min(1);
 
 const validate = async (schema, obj, next) => {
   try {
