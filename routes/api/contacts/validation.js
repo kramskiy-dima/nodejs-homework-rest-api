@@ -9,7 +9,7 @@ const schemaCreateContact = Joi.object({
     })
     .required(),
   phone: Joi.string().required(),
-  isVaccinated: Joi.boolean().optional(),
+  favorite: Joi.boolean().optional(),
 });
 
 const schemaUpdateContact = Joi.object({
@@ -21,9 +21,9 @@ const schemaUpdateContact = Joi.object({
     })
     .optional(),
   phone: Joi.string().optional(),
-  isVaccinated: Joi.boolean().optional(),
+  favorite: Joi.boolean().optional(),
 })
-  .or("name", "email", "phone", "isVaccinated")
+  .or("name", "email", "phone", "favorite")
   .min(1);
 
 const schemaUpdateStatusContact = Joi.object({
