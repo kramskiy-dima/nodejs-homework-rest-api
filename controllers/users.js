@@ -85,21 +85,17 @@ const currentUser = async (req, res, next) => {
 
 const changeSubscription = async (req, res, next) => {
   try {
-    const headerAuth = req.get("Authorization");
-    let token = null;
-    if (headerAuth) {
-      token = headerAuth.split(" ")[1];
-      const { subscription } = await Users.updateSubscription(
-        token,
-        req.body.subscription
-      );
+    const { subscription } = await Users.updateSubscription(
+      req.user.id,
+      req.body.subscription
+    );
 
-      return res.json({
-        status: "success",
-        code: HttpCode.OK,
-        subscription,
-      });
-    }
+    return res.json({
+      status: "success",
+      code: HttpCode.OK,
+      subscription,
+    });
+    // }
   } catch (error) {
     next(error);
   }
