@@ -1,6 +1,9 @@
 const Users = require("../repositories/users");
 const jwt = require("jsonwebtoken");
+const fs = require("fs/promises");
+const path = require("path");
 const { HttpCode } = require("../helpers/constans");
+const UploadAvatar = require("../services/upload-avatar");
 require("dotenv").config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -16,11 +19,13 @@ const signup = async (req, res, next) => {
       });
     }
 
-    const { id, name, email, subscription } = await Users.createUser(req.body);
+    const { id, email, subscription, avatarURL } = await Users.createUser(
+      req.body
+    );
     return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
-      data: { id, name, email, subscription },
+      data: { id, email, subscription, avatar: avatarURL },
     });
   } catch (error) {
     next(error);
@@ -47,7 +52,11 @@ const login = async (req, res, next) => {
       code: HttpCode.OK,
       data: {
         token,
-        user: { email: user.email, subscription: user.subscription },
+        user: {
+          email: user.email,
+          subscription: user.subscription,
+          avatar: user.avatarURL,
+        },
       },
     });
   } catch (error) {
@@ -66,7 +75,7 @@ const logout = async (req, res, next) => {
 };
 
 const currentUser = async (req, res, next) => {
-  const { email, subscription } = req.user;
+  const { email, subscription, avatarURL } = req.user;
   try {
     if (req.user) {
       return res.json({
@@ -75,6 +84,7 @@ const currentUser = async (req, res, next) => {
         data: {
           email,
           subscription,
+          avatarURL,
         },
       });
     }
@@ -101,4 +111,30 @@ const changeSubscription = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login, logout, currentUser, changeSubscription };
+const avatars = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const uploads = new UploadAvatar("avatars");
+    const avatarURL = await uploads.saveAvatar({ file: req.file });
+
+    try {
+      await fs.unlink(path.join("public", req.user.avatarURL));
+    } catch (error) {
+      console.log(error);
+    }
+
+    await Users.updateAvatar(id, avatarURL);
+    res.json({ status: "success", code: HttpCode.OK, data: { avatarURL } });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  signup,
+  login,
+  logout,
+  currentUser,
+  changeSubscription,
+  avatars,
+};
