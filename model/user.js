@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 const { Subscription } = require("../helpers/constans");
+const shortid = require("shortid");
 
 const SALT_WORK_FACTOR = 8;
 const subscriptions = Object.values(Subscription);
@@ -32,6 +33,15 @@ const userSchema = new Schema(
       default: function () {
         return gravatar.url(this.email, { s: "250" }, true);
       },
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+      default: shortid(),
     },
   },
   { versionKey: false, timestamps: false }
